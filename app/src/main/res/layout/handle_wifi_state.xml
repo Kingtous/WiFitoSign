@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+    <TextView
+        android:gravity="center"
+        android:id="@+id/label_WIFI_Name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="WiFi名称"
+        />
+
+    <TextView
+        android:gravity="center"
+        android:id="@+id/text_WIFI_Name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="WIFI Name"
+        android:layout_below="@+id/label_WIFI_Name"
+        />
+
+    <TextView
+        android:gravity="center"
+        android:id="@+id/label_WIFI_mac"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Mac地址"
+        android:layout_below="@id/text_WIFI_Name"
+        />
+    <TextView
+        android:gravity="center"
+        android:id="@+id/text_WIFI_mac"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="WIFI Address"
+        android:layout_below="@id/label_WIFI_mac"
+        />
+
+
+
+
+
+
+
+
+
+
+</RelativeLayout>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <FrameLayout
+        android:id="@+id/frame_state"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:gravity="center"
+        android:layout_marginTop="50dp"
+        />
+
+        <FrameLayout
+            android:id="@+id/frame_map"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_below="@+id/frame_state"
+            >
+        </FrameLayout>
+
+    <TextView
+        android:id="@+id/text_position"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="位置显示在此"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/frame_map"
+        android:layout_marginTop="30dp"
+        />
+    <Button
+        android:id="@+id/btn_pos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="重新定位"
+        android:layout_below="@+id/text_position"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        />
+    <Button
+        android:id="@+id/btn_handle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="打卡"
+        android:layout_below="@+id/btn_pos"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        />
+
+
+
+
+
+
+</RelativeLayout>
