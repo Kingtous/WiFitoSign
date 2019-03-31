@@ -27,7 +27,6 @@
         android:id="@+id/text_position"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="位置显示在此"
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/frame_map"
         android:layout_marginTop="30dp"
@@ -39,7 +38,7 @@
         android:text="重新定位"
         android:layout_below="@+id/text_position"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="30dp"
         />
     <Button
         android:id="@+id/btn_handle"
@@ -47,6 +46,15 @@
         android:layout_height="wrap_content"
         android:text="打卡"
         android:layout_below="@+id/btn_pos"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        />
+    <Button
+        android:id="@+id/btn_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="打卡历史"
+        android:layout_below="@+id/btn_handle"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
         />

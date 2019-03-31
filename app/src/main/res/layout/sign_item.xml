@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_margin="10dp"
+    >
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp">
+        <TextView
+            android:id="@+id/text_sign_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="打卡时间"/>
+
+        <TextView
+            android:layout_below="@+id/text_sign_time"
+            android:id="@+id/text_sign_wifi"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="打卡WiFi"/>
+
+        <TextView
+            android:layout_below="@+id/text_sign_wifi"
+            android:id="@+id/text_sign_wifi_bssid"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="打卡WiFi的BSSID"/>
+
+        <TextView
+            android:layout_below="@+id/text_sign_wifi_bssid"
+            android:id="@+id/text_sign_position"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="位置"
+            />
+    </RelativeLayout>
+</android.support.v7.widget.CardView>
+
+
+

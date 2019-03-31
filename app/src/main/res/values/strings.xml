@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">WiFiLocate</string>
+    <string name="wifi">NEUQer</string>
+    <string name="bssid">80:89:17:b5:73:c0</string>
 </resources>

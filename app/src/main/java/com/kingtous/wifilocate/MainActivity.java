@@ -1,6 +1,9 @@
 package com.kingtous.wifilocate;
 
+import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentManager;
@@ -20,18 +23,23 @@ import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.location.AMapLocationListener;
 import com.amap.api.maps2d.model.LatLng;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 
-public class MainActivity extends AppCompatActivity{
+public class MainActivity extends AppCompatActivity implements Button.OnClickListener{
 
     FrameLayout frame_wifi=null;
     TextView textView_position=null;
-    Button btn_pos=null;
+    Button btn_pos;
+    Button btn_handle;
+    Button btn_view;
     FrameLayout frame_map;
     MapFragment mapFragment;
     WiFiStateFragment wiFiStateFragment;
+    SQLiteClient client;
 
     //声明AMapLocationClient类对象
     public AMapLocationClient mLocationClient = null;
@@ -62,16 +70,13 @@ public class MainActivity extends AppCompatActivity{
         setContentView(R.layout.activity_main);
         textView_position=(TextView) findViewById(R.id.text_position);
         btn_pos=(Button) findViewById(R.id.btn_pos);
+        btn_handle=findViewById(R.id.btn_handle);
         frame_wifi=findViewById(R.id.frame_state);
         frame_map=findViewById(R.id.frame_map);
-        btn_pos.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (checkPermission()){
-                    startLocate();
-                }
-            }
-        });
+        btn_pos.setOnClickListener(this);
+        btn_handle.setOnClickListener(this);
+        btn_view=findViewById(R.id.btn_view);
+        btn_view.setOnClickListener(this);
         mapFragment=new MapFragment();
         wiFiStateFragment=new WiFiStateFragment();
         //载入WiFi状态
@@ -98,14 +103,14 @@ public class MainActivity extends AppCompatActivity{
 
     void setMap() {
         if (checkPermission()) {
-            //将map加入进Fragment中
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            FragmentTransaction transaction = fragmentManager.beginTransaction();
-            if (!mapFragment.isAdded()) {
-                transaction.add(R.id.frame_map, mapFragment).commit();
-            }
+        //将map加入进Fragment中
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        if (!mapFragment.isAdded()) {
+            transaction.add(R.id.frame_map, mapFragment).commit();
         }
     }
+}
 
     void setWiFiState(){
         FragmentManager fragmentManager = getSupportFragmentManager();
@@ -147,6 +152,35 @@ public class MainActivity extends AppCompatActivity{
         //设置是否返回地址信息（默认返回地址信息）
         mLocationOption.setNeedAddress(true);
         setMap();
+        //=====初始化数据库=====
+        initDatabase();
+    }
+
+    private void initDatabase() {
+        client=new SQLiteClient(this);
+    }
+
+    void startSign(){
+        if (client!=null && !wiFiStateFragment.isDetached()){
+            if (textView_position.getText().toString().equals("")){
+                log("未获取位置信息");
+                return;
+            }
+            if (wiFiStateFragment.getWifiName()==null || wiFiStateFragment.getWifiMacAddress()==null){
+                log("未获取到WiFi信息");
+                return;
+            }
+            SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            Date date=new Date();
+            if(client.Sign(wiFiStateFragment.getWifiName().substring(1,wiFiStateFragment.getWifiName().length()-1),
+                    wiFiStateFragment.getWifiMacAddress(),
+                    format.format(date),
+                    textView_position.getText().toString()
+                    )){
+                log("打卡成功");
+            }
+            else log("打卡未知错误");
+        }
     }
 
     void getLocation(){
@@ -155,8 +189,6 @@ public class MainActivity extends AppCompatActivity{
         //启动定位
         mLocationClient.startLocation();
     }
-
-
 
     private void log(String text){
         Toast.makeText(this,text,Toast.LENGTH_LONG).show();
@@ -184,5 +216,25 @@ public class MainActivity extends AppCompatActivity{
         }
     }
 
-
+    @Override
+    public void onClick(View view) {
+        int id=view.getId();
+        switch (id){
+            case R.id.btn_pos:
+                // 重新定位
+                if (checkPermission()){
+                    startLocate();
+                }
+                break;
+            case  R.id.btn_handle:
+                // 访问数据库，检查WiFi名称和BBSD是否符合
+                // 是则向数据库写入打卡信息，否则报错
+                startSign();
+                break;
+            case R.id.btn_view:
+                Intent intent=new Intent(this,RecordShowActivity.class);
+                startActivity(intent);
+                break;
+        }
+    }
 }

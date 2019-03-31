@@ -56,11 +56,6 @@ public class WiFiStateFragment extends Fragment {
         checkWiFi();
     }
 
-    public boolean isCorrectWiFi(){
-
-        return true;
-    }
-
     private void setNoneWiFiState(){
         String str="<font color='red'><small>"+"非WiFi状态或者设备未连接到指定WiFi"+"</small></font>";
         text_wifi_name.setText(Html.fromHtml(str));
@@ -85,7 +80,7 @@ public class WiFiStateFragment extends Fragment {
 
     }
 
-    private String getWifiName(){
+    public String getWifiName(){
         WifiManager wm = (WifiManager) Objects.requireNonNull(getActivity()).getApplicationContext().getSystemService(WIFI_SERVICE);
         if (wm != null) {
             WifiInfo winfo = wm.getConnectionInfo();
